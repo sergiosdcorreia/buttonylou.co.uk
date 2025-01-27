@@ -72,6 +72,41 @@ export type HomepageDocument<Lang extends string = string> =
 export type AllDocumentTypes = HomepageDocument;
 
 /**
+ * Primary content in *Hero → Default → Primary*
+ */
+export interface HeroSliceDefaultPrimary {
+  /**
+   * Heading field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Sub heading field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.sub_heading
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  sub_heading: prismic.RichTextField;
+
+  /**
+   * Hero Image field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.hero_image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  hero_image: prismic.ImageField<never>;
+}
+
+/**
  * Default variation for Hero Slice
  *
  * - **API ID**: `default`
@@ -80,7 +115,7 @@ export type AllDocumentTypes = HomepageDocument;
  */
 export type HeroSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
+  Simplify<HeroSliceDefaultPrimary>,
   never
 >;
 
@@ -124,6 +159,7 @@ declare module "@prismicio/client" {
       HomepageDocumentDataSlicesSlice,
       AllDocumentTypes,
       HeroSlice,
+      HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
     };
