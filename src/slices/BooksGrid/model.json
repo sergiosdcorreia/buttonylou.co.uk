@@ -1,0 +1,57 @@
+{
+  "id": "books_grid",
+  "type": "SharedSlice",
+  "name": "BooksGrid",
+  "description": "BooksGrid",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "heading": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Heading",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "heading2"
+          }
+        },
+        "body": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Body",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,strong,em"
+          }
+        },
+        "books": {
+          "type": "Group",
+          "config": {
+            "label": "Books",
+            "repeat": true,
+            "fields": {
+              "book": {
+                "type": "Link",
+                "config": {
+                  "label": "Book",
+                  "select": "document",
+                  "repeat": false,
+                  "customtypes": [
+                    "book"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

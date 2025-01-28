@@ -4,7 +4,74 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type HomepageDocumentDataSlicesSlice = HeroSlice;
+/**
+ * Content for Book documents
+ */
+interface BookDocumentData {
+  /**
+   * Name field in *Book*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Image field in *Book*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Price (cents) field in *Book*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.price
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#number
+   */
+  price: prismic.NumberField;
+
+  /**
+   * Amazon Link field in *Book*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.amazon_link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  amazon_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+}
+
+/**
+ * Book document from Prismic
+ *
+ * - **API ID**: `book`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BookDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<BookDocumentData>, "book", Lang>;
+
+type HomepageDocumentDataSlicesSlice = BooksGridSlice | HeroSlice;
 
 /**
  * Content for homepage documents
@@ -188,7 +255,90 @@ export type SettingsDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = HomepageDocument | SettingsDocument;
+export type AllDocumentTypes =
+  | BookDocument
+  | HomepageDocument
+  | SettingsDocument;
+
+/**
+ * Item in *BooksGrid → Default → Primary → Books*
+ */
+export interface BooksGridSliceDefaultPrimaryBooksItem {
+  /**
+   * Book field in *BooksGrid → Default → Primary → Books*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: books_grid.default.primary.books[].book
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  book: prismic.ContentRelationshipField<"book">;
+}
+
+/**
+ * Primary content in *BooksGrid → Default → Primary*
+ */
+export interface BooksGridSliceDefaultPrimary {
+  /**
+   * Heading field in *BooksGrid → Default → Primary*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: books_grid.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  heading: prismic.TitleField;
+
+  /**
+   * Body field in *BooksGrid → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: books_grid.default.primary.body
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  body: prismic.RichTextField;
+
+  /**
+   * Books field in *BooksGrid → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: books_grid.default.primary.books[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  books: prismic.GroupField<Simplify<BooksGridSliceDefaultPrimaryBooksItem>>;
+}
+
+/**
+ * Default variation for BooksGrid Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BooksGridSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<BooksGridSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *BooksGrid*
+ */
+type BooksGridSliceVariation = BooksGridSliceDefault;
+
+/**
+ * BooksGrid Shared Slice
+ *
+ * - **API ID**: `books_grid`
+ * - **Description**: BooksGrid
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BooksGridSlice = prismic.SharedSlice<
+  "books_grid",
+  BooksGridSliceVariation
+>;
 
 /**
  * Primary content in *Hero → Default → Primary*
@@ -273,6 +423,8 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      BookDocument,
+      BookDocumentData,
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
@@ -281,6 +433,11 @@ declare module "@prismicio/client" {
       SettingsDocumentDataNavigationItem,
       SettingsDocumentDataFooterPencilsItem,
       AllDocumentTypes,
+      BooksGridSlice,
+      BooksGridSliceDefaultPrimaryBooksItem,
+      BooksGridSliceDefaultPrimary,
+      BooksGridSliceVariation,
+      BooksGridSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
