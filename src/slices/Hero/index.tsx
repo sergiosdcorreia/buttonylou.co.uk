@@ -1,9 +1,9 @@
 import { Content } from "@prismicio/client";
-import { PrismicNextImage } from "@prismicio/next";
-import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
+import { PrismicRichText, PrismicText, SliceComponentProps } from "@prismicio/react";
 import { JSX } from "react";
 
 import { Bounded } from "@/components/Bounded";
+import { Heading } from "@/components/Heading";
 
 /**
  * Props for `Hero`.
@@ -18,17 +18,22 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
+      className="h-dvh overflow-hidden bg-hero"
     >
-      <div className="text-6xl">
-        <PrismicRichText field={slice.primary.heading} />
-      </div>
-      <div className="text-3xl">
-        <PrismicRichText field={slice.primary.sub_heading} />
+      <div className="absolute backdrop-blur-lg
+               [ p-8 md:p-10 lg:p-10 ]
+               [ bg-gradient-to-b from-white/60 to-white/30 ]
+               [ border-[1px] border-solid border-white border-opacity-30 ]
+               [ shadow-black/70 shadow-2xl ]
+                rounded-3xl max-w-4xl top-2/3">
+        <Heading size="md" className="mb-4">
+          <PrismicText field={slice.primary.heading} />
+        </Heading>
+        <div className="text-xl">
+          <PrismicRichText field={slice.primary.sub_heading} />
+        </div>
       </div>
 
-      <div>
-        <PrismicNextImage field={slice.primary.hero_image} />
-      </div>
     </Bounded>
   );
 };
