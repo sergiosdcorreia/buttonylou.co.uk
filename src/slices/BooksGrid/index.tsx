@@ -27,7 +27,7 @@ const BooksGrid = ({ slice }: BooksGridProps): JSX.Element => {
       <div className="text-center ~mb-6/10">
         <PrismicRichText field={slice.primary.body} />
       </div>
-      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4`">
+      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {slice.primary.books.map(({ book }) => (
           isFilled.contentRelationship(book) && (
             <BookProduct key={book.id} id={book.id} />

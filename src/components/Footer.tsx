@@ -36,6 +36,9 @@ export default async function Footer() {
           ))}
         </ul>
       </Bounded>
+      <div className='text-center text-white text-sm'>
+        <p>© 2025 Buttony Lou</p>
+      </div>
     </footer>
   )
 }
