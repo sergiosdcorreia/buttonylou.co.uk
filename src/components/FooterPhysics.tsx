@@ -72,7 +72,7 @@ export function FooterPhysics({
     const cw = scene.current.clientWidth;
     const ch = scene.current.clientHeight;
 
-    engine.current.gravity.y = 0.5;
+    engine.current.gravity.y = .6;
 
     const render = Render.create({
       element: scene.current,

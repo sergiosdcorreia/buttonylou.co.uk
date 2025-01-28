@@ -19,7 +19,13 @@ export default async function Footer() {
       <div className='relative h-[75vh] ~p-10/16'>
       <PrismicNextImage field={settings.data.footer_image} alt='' fill className='object-cover' width={1200} />
       <FooterPhysics pencilTextureURLs={pencilTextureURLs} className='absolute inset-0 overflow-hidden' />
-      <Image src="/ButtonyLou_logo.jpg" alt='logo' width={100} height={100} className='relative h-20 md:h-28 rounded-full pointer-events-none' />
+      <Image
+        src="/ButtonyLou_logo.jpg"
+        alt='logo'
+        width={100}
+        height={100}
+        className='relative h-20 w-20 md:h-28 md:w-28 rounded-full pointer-events-none select-none'
+      />
       </div>
       <Bounded as="nav">
         <ul className='flex flex-wrap justify-center gap-8 ~text-lg/xl'>

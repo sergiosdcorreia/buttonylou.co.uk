@@ -18,14 +18,14 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="h-dvh overflow-hidden bg-hero"
+      className=" top-0 h-dvh overflow-hidden bg-hero flex items-end"
     >
-      <div className="absolute backdrop-blur-lg
+      <div className="backdrop-blur-lg
           [ p-8 md:p-10 lg:p-10 ]
           [ bg-gradient-to-b from-white/60 to-white/30 ]
           [ border-[1px] border-solid border-white border-opacity-30 ]
           [ shadow-black/70 shadow-2xl ]
-          rounded-3xl max-w-4xl top-2/3 ~m-4/6">
+          rounded-3xl max-w-3xl ~m-4/6">
         <Heading size="md" className="mb-4">
           <PrismicText field={slice.primary.heading} />
         </Heading>
@@ -33,7 +33,6 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
           <PrismicRichText field={slice.primary.sub_heading} />
         </div>
       </div>
-
     </Bounded>
   );
 };
