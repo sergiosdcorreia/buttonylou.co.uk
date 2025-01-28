@@ -21,11 +21,11 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       className="h-dvh overflow-hidden bg-hero"
     >
       <div className="absolute backdrop-blur-lg
-               [ p-8 md:p-10 lg:p-10 ]
-               [ bg-gradient-to-b from-white/60 to-white/30 ]
-               [ border-[1px] border-solid border-white border-opacity-30 ]
-               [ shadow-black/70 shadow-2xl ]
-                rounded-3xl max-w-4xl top-2/3">
+          [ p-8 md:p-10 lg:p-10 ]
+          [ bg-gradient-to-b from-white/60 to-white/30 ]
+          [ border-[1px] border-solid border-white border-opacity-30 ]
+          [ shadow-black/70 shadow-2xl ]
+          rounded-3xl max-w-4xl top-2/3 ~m-4/6">
         <Heading size="md" className="mb-4">
           <PrismicText field={slice.primary.heading} />
         </Heading>

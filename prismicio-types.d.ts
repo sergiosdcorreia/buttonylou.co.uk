@@ -85,6 +85,21 @@ export interface SettingsDocumentDataNavigationItem {
 }
 
 /**
+ * Item in *Settings → Footer Pencils*
+ */
+export interface SettingsDocumentDataFooterPencilsItem {
+  /**
+   * Pencil field in *Settings → Footer Pencils*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.footer_pencils[].pencil
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  pencil: prismic.ImageField<never>;
+}
+
+/**
  * Content for Settings documents
  */
 interface SettingsDocumentData {
@@ -131,6 +146,30 @@ interface SettingsDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#group
    */
   navigation: prismic.GroupField<Simplify<SettingsDocumentDataNavigationItem>>;
+
+  /**
+   * Footer Image field in *Settings*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.footer_image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  footer_image: prismic.ImageField<never>;
+
+  /**
+   * Footer Pencils field in *Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.footer_pencils[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  footer_pencils: prismic.GroupField<
+    Simplify<SettingsDocumentDataFooterPencilsItem>
+  >;
 }
 
 /**
@@ -240,6 +279,7 @@ declare module "@prismicio/client" {
       SettingsDocument,
       SettingsDocumentData,
       SettingsDocumentDataNavigationItem,
+      SettingsDocumentDataFooterPencilsItem,
       AllDocumentTypes,
       HeroSlice,
       HeroSliceDefaultPrimary,
