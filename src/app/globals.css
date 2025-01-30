@@ -4,7 +4,6 @@
 
 
 .bg-hero {
-  background-image: url("/3childrenBooksMockup.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;
@@ -40,4 +39,17 @@
   border-color: #008296;
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   outline: 0;
+}
+
+/* Slide In Animation */
+.slide-in-hidden {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+@keyframes slide-in {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

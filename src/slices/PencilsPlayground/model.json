@@ -1,0 +1,27 @@
+{
+  "id": "pencils_playground",
+  "type": "SharedSlice",
+  "name": "PencilsPlayground",
+  "description": "PencilsPlayground",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "image_background": {
+          "type": "Image",
+          "config": {
+            "label": "Image Background",
+            "constraint": {},
+            "thumbnails": []
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

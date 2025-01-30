@@ -18,7 +18,8 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className=" top-0 h-dvh overflow-hidden bg-hero flex items-end"
+      className="h-dvh overflow-hidden bg-hero flex items-end"
+      style={{backgroundImage: `url(${slice.primary.hero_image?.url})`}}
     >
       <div className="backdrop-blur-lg
           [ p-8 md:p-10 lg:p-10 ]

@@ -4,6 +4,80 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type AboutDocumentDataSlicesSlice = AboutSlice;
+
+type AboutDocumentDataSlices1Slice = never;
+
+/**
+ * Content for About documents
+ */
+interface AboutDocumentData {
+  /**
+   * Slice Zone field in *About*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<AboutDocumentDataSlicesSlice> /**
+   * Meta Title field in *About*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: about.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *About*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: about.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *About*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * `slices1` field in *About*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.slices1[]
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices1: prismic.SliceZone<AboutDocumentDataSlices1Slice>;
+}
+
+/**
+ * About document from Prismic
+ *
+ * - **API ID**: `about`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type AboutDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<AboutDocumentData>, "about", Lang>;
+
 /**
  * Content for Book documents
  */
@@ -71,7 +145,10 @@ interface BookDocumentData {
 export type BookDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<BookDocumentData>, "book", Lang>;
 
-type HomepageDocumentDataSlicesSlice = BooksGridSlice | HeroSlice;
+type HomepageDocumentDataSlicesSlice =
+  | PencilsPlaygroundSlice
+  | BooksGridSlice
+  | HeroSlice;
 
 /**
  * Content for homepage documents
@@ -215,17 +292,6 @@ interface SettingsDocumentData {
   navigation: prismic.GroupField<Simplify<SettingsDocumentDataNavigationItem>>;
 
   /**
-   * Footer Image field in *Settings*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: settings.footer_image
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  footer_image: prismic.ImageField<never>;
-
-  /**
    * Footer Pencils field in *Settings*
    *
    * - **Field Type**: Group
@@ -236,6 +302,23 @@ interface SettingsDocumentData {
    */
   footer_pencils: prismic.GroupField<
     Simplify<SettingsDocumentDataFooterPencilsItem>
+  >;
+
+  /**
+   * Social Media field in *Settings*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.social_media
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  social_media: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
   >;
 }
 
@@ -256,9 +339,72 @@ export type SettingsDocument<Lang extends string = string> =
   >;
 
 export type AllDocumentTypes =
+  | AboutDocument
   | BookDocument
   | HomepageDocument
   | SettingsDocument;
+
+/**
+ * Primary content in *About → Default → Primary*
+ */
+export interface AboutSliceDefaultPrimary {
+  /**
+   * Heading field in *About → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Author Image field in *About → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.default.primary.author_image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  author_image: prismic.ImageField<never>;
+
+  /**
+   * Author Description field in *About → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.default.primary.author_description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  author_description: prismic.RichTextField;
+}
+
+/**
+ * Default variation for About Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type AboutSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<AboutSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *About*
+ */
+type AboutSliceVariation = AboutSliceDefault;
+
+/**
+ * About Shared Slice
+ *
+ * - **API ID**: `about`
+ * - **Description**: About
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type AboutSlice = prismic.SharedSlice<"about", AboutSliceVariation>;
 
 /**
  * Item in *BooksGrid → Default → Primary → Books*
@@ -402,6 +548,51 @@ type HeroSliceVariation = HeroSliceDefault;
  */
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
+/**
+ * Primary content in *PencilsPlayground → Default → Primary*
+ */
+export interface PencilsPlaygroundSliceDefaultPrimary {
+  /**
+   * Image Background field in *PencilsPlayground → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: pencils_playground.default.primary.image_background
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image_background: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for PencilsPlayground Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PencilsPlaygroundSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<PencilsPlaygroundSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *PencilsPlayground*
+ */
+type PencilsPlaygroundSliceVariation = PencilsPlaygroundSliceDefault;
+
+/**
+ * PencilsPlayground Shared Slice
+ *
+ * - **API ID**: `pencils_playground`
+ * - **Description**: PencilsPlayground
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PencilsPlaygroundSlice = prismic.SharedSlice<
+  "pencils_playground",
+  PencilsPlaygroundSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -423,6 +614,10 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      AboutDocument,
+      AboutDocumentData,
+      AboutDocumentDataSlicesSlice,
+      AboutDocumentDataSlices1Slice,
       BookDocument,
       BookDocumentData,
       HomepageDocument,
@@ -433,6 +628,10 @@ declare module "@prismicio/client" {
       SettingsDocumentDataNavigationItem,
       SettingsDocumentDataFooterPencilsItem,
       AllDocumentTypes,
+      AboutSlice,
+      AboutSliceDefaultPrimary,
+      AboutSliceVariation,
+      AboutSliceDefault,
       BooksGridSlice,
       BooksGridSliceDefaultPrimaryBooksItem,
       BooksGridSliceDefaultPrimary,
@@ -442,6 +641,10 @@ declare module "@prismicio/client" {
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      PencilsPlaygroundSlice,
+      PencilsPlaygroundSliceDefaultPrimary,
+      PencilsPlaygroundSliceVariation,
+      PencilsPlaygroundSliceDefault,
     };
   }
 }
