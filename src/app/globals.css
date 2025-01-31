@@ -3,6 +3,19 @@
 @tailwind utilities;
 
 
+:root {
+  --font-balsamiq-sans: "Balsamiq Sans", sans-serif;
+  --font-nunito-sans: "Nunito Sans", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-balsamiq-sans);
+}
+
+body, p, button, input {
+  font-family: var(--font-nunito-sans);
+}
+
 .bg-hero {
   background-repeat: no-repeat;
   background-size: cover;
