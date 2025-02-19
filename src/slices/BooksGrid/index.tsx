@@ -1,5 +1,9 @@
 import { Content, isFilled } from "@prismicio/client";
-import { PrismicRichText, PrismicText, SliceComponentProps } from "@prismicio/react";
+import {
+  PrismicRichText,
+  PrismicText,
+  SliceComponentProps,
+} from "@prismicio/react";
 import { JSX } from "react";
 
 import { Bounded } from "@/components/Bounded";
@@ -32,15 +36,14 @@ const BooksGrid = ({ slice }: BooksGridProps): JSX.Element => {
           <PrismicRichText field={slice.primary.body} />
         </div>
       </SlideIn>
-      <SlideIn>
-        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {slice.primary.books.map(({ book }) => (
+      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {slice.primary.books.map(
+          ({ book }) =>
             isFilled.contentRelationship(book) && (
               <BookProduct key={book.id} id={book.id} />
             )
-          ))}
-        </div>
-      </SlideIn>
+        )}
+      </div>
     </Bounded>
   );
 };
