@@ -11,7 +11,7 @@ export default async function Footer() {
   return (
     <footer className="flex justify-center bg-zinc-800">
       <Bounded as="nav">
-        <p className="text-white mb-6 text-center text-xl">Buttony Lou</p>
+        <p className="text-white mb-10 text-center text-xl">Buttony Lou</p>
         <PrismicNextLink
           field={settings.data.social_media}
           className="flex justify-center mb-5"
