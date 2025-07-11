@@ -14,7 +14,7 @@ export default async function BookProduct({ id }: Props) {
 
   const price = isFilled.number(product.data.price)
     ? `£${(product.data.price / 100).toFixed(2)}`
-    : "Price Not Available";
+    : "";
 
   return (
     <SlideIn>
