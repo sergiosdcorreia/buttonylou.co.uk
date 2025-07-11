@@ -75,6 +75,17 @@
           "allowText": true,
           "repeat": false
         }
+      },
+      "youtube": {
+        "type": "Link",
+        "config": {
+          "label": "YouTube",
+          "placeholder": "",
+          "select": null,
+          "allowTargetBlank": true,
+          "allowText": true,
+          "repeat": false
+        }
       }
     }
   }
