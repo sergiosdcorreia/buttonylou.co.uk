@@ -14,7 +14,7 @@ export default async function Footer() {
         <p className="text-white mb-6 text-center text-xl">Buttony Lou</p>
         <PrismicNextLink
           field={settings.data.social_media}
-          className="flex justify-center mb-10"
+          className="flex justify-center mb-5"
         >
           <FaInstagram size="32" color="white" />
         </PrismicNextLink>
