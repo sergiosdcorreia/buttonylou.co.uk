@@ -25,7 +25,7 @@ export default async function Footer() {
           <FaYoutube size="32" color="white" />
         </PrismicNextLink>
         <div className="text-center text-white text-sm">
-          <p>© 2025 Buttony Lou</p>
+          <p>© Buttony Lou 2025</p>
         </div>
       </Bounded>
     </footer>
